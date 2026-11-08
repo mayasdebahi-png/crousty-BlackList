@@ -10,17 +10,11 @@ Projet réalisé en équipe, en méthode Scrum, dans le cadre du **BTS SIO optio
 
 ## L'équipe
 
-<!--
-  TODO S1-01 (sprint 1) : présenter votre équipe.
-    Consigne : remplacer la ligne « À compléter » par une ligne par membre, et indiquer
-               à quel sprint chacun sera Scrum Master (le rôle change à chaque sprint).
-    Indice   : dans un tableau Markdown, chaque ligne commence et finit par « | ».
-               Cliquez sur « Preview » (GitHub) pour voir le résultat.
--->
 
 | Prénom Nom | Pseudo GitHub | Scrum Master au sprint |
 |---|---|---|
-| _À compléter_ | _À compléter_ | _À compléter_ |
+| Mayas Debahi | mayasdebahi-png | Sprint 1 |
+| Zhang Jiamo | zhangjiamo | Sprint 2 |
 
 ---
 
