@@ -1,38 +1,38 @@
-using CroustyClickCollect.Data;
-using CroustyClickCollect.Models;
-using CroustyClickCollect.Services;
 using Microsoft.AspNetCore.Mvc;
+using CroustyClickCollect.Data;
+using CroustyClickCollect.Services;
 
-namespace CroustyClickCollect.Controllers;
-
-/// <summary>
-/// La page « Nos restaurants » (V3).
-/// </summary>
-public class RestaurantsController : Controller
+namespace CroustyClickCollect.Controllers
 {
-    private readonly RestaurantRepository _restaurants;
-
-    public RestaurantsController(RestaurantRepository restaurants)
+    public class RestaurantsController : Controller
     {
-        _restaurants = restaurants;
-    }
+        private readonly IRestaurantRepository _restaurantRepository;
+        private readonly IHorairesService _horairesService;
 
-    // Adresse : /Restaurants
-    public IActionResult Index()
-    {
-        List<Restaurant> restaurants = _restaurants.GetTous();
-
-        TimeSpan heureActuelle = DateTime.Now.TimeOfDay;
-
-        foreach (Restaurant restaurant in restaurants)
+        public RestaurantsController(
+            IRestaurantRepository restaurantRepository,
+            IHorairesService horairesService)
         {
-            restaurant.EstOuvertMaintenant = HorairesService.EstOuvert(
-                restaurant.HeureOuverture,
-                restaurant.HeureFermeture,
-                heureActuelle
-            );
+            _restaurantRepository = restaurantRepository;
+            _horairesService = horairesService;
         }
 
-        return View(restaurants);
+        // GET: /Restaurants
+        public IActionResult Index()
+        {
+            // S2-01 : récupérer tous les restaurants, triés par nom
+            var restaurants = _restaurantRepository.GetAll();
+
+            var maintenant = DateTime.Now;
+
+            // S2-04 : indiquer pour chaque restaurant s'il est ouvert en ce moment
+            var viewModel = restaurants.Select(r => new RestaurantViewModel
+            {
+                Restaurant = r,
+                EstOuvert = _horairesService.EstOuvert(r, maintenant)
+            }).ToList();
+
+            return View(viewModel);
+        }
     }
 }
