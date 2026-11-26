@@ -18,7 +18,7 @@ public class RestaurantsController : Controller
     }
 
     // Adresse : /Restaurants
-    public IActionResult Index()
+   public IActionResult Index()
 {
     List<Restaurant> restaurants = _restaurants.GetTous();
     TimeSpan maintenant = DateTime.Now.TimeOfDay;
